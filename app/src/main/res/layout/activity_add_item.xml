@@ -27,7 +27,7 @@
         android:contentDescription="TODO" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/itemName"
         android:layout_width="300dp"
         android:layout_height="50sp"
         android:layout_marginTop="92dp"
@@ -41,7 +41,7 @@
         android:autofillHints="" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/itemQuantity"
         android:layout_width="300dp"
         android:layout_height="50sp"
         android:background="@drawable/input_field"
@@ -51,7 +51,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/itemName"
         app:layout_constraintVertical_bias="0.314" />
 
     <TextView
@@ -62,7 +62,7 @@
         android:text="Item Name:"
         android:textColor="@color/colorText1"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/itemName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.169"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,29 +77,45 @@
         android:text="Item Quantity:"
         android:textColor="@color/colorText1"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName2"
+        app:layout_constraintBottom_toTopOf="@+id/itemQuantity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.172"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/itemName"
         app:layout_constraintVertical_bias="0.61" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/addButton"
         android:layout_width="171dp"
         android:layout_height="51dp"
         android:background="@drawable/addbtn"
         android:fontFamily="@font/medium"
+        android:onClick="itemAdded"
         android:text="Add Items"
         android:textAllCaps="false"
-        android:textColor="@color/txtColor"
 
+        android:textColor="@color/txtColor"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2"
+        app:layout_constraintTop_toBottomOf="@+id/itemQuantity"
         app:layout_constraintVertical_bias="0.338" />
+
+    <Button
+        android:id="@+id/seeListBut"
+        android:layout_width="115dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="87dp"
+        android:layout_marginEnd="264dp"
+        android:background="@drawable/addbtn"
+        android:fontFamily="@font/medium"
+        android:text="@string/seelistBut"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
