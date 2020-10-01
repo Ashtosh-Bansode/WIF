@@ -14,11 +14,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AddItemActivity extends AppCompatActivity {
     EditText editText;
+    EditText itemquantity;
     Button button;
     ListView listView;
     Button viewlist;
@@ -45,15 +48,27 @@ public class AddItemActivity extends AppCompatActivity {
     public void itemAdded(View view) {
         Context context = getApplicationContext();
         editText=findViewById(R.id.itemName);
+        itemquantity=findViewById(R.id.itemQuantity);
         // Add item to array
-        itemsInFridge.add(editText.getText().toString());
-        editText.setText("");
+
         // Save array internally
         SharedPreferences shref;
         SharedPreferences.Editor editor;
+
         shref = context.getSharedPreferences("itemsInFridge", Context.MODE_PRIVATE);
+
         Gson gson = new Gson();
-        String json = gson.toJson(itemsInFridge);
+
+        String response=shref.getString(key , "");
+        if(response!="") {
+            itemsInFridge = gson.fromJson(response,
+                    new TypeToken<List<String>>() {
+                    }.getType());
+        }
+        itemsInFridge.add(editText.getText().toString()+":"+itemquantity.getText().toString());
+        editText.setText("");
+        Gson gson1 = new Gson();
+        String json = gson1.toJson(itemsInFridge);
         editor = shref.edit();
         editor.remove(key).commit();
         editor.putString(key, json);

@@ -24,6 +24,9 @@ public class View_Items extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         ListView lv;
+        ListView lvQ;
+        ArrayList<String> itemNamesList = new ArrayList();
+        ArrayList<String> itemQuantityList = new ArrayList();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__items);
         Context context = getApplicationContext();
@@ -35,7 +38,58 @@ public class View_Items extends AppCompatActivity {
         String response=shref.getString(key , "");
         ArrayList<String> importedItemsInFridge= gson.fromJson(response,
                 new TypeToken<List<String>>(){}.getType());
+     /*   for(int i=0;i<importedItemsInFridge.size();i++)
+        {
+            String[] separated = importedItemsInFridge.get(i).split(":");
+            itemNamesList.add(separated[0]);
+            itemQuantityList.add(separated[1]);
+        }
+        String[] separated = importedItemsInFridge.get(7).split(":");
+        itemNamesList.add(separated[0]);
+        itemQuantityList.add(separated[1]);
         // Adding items to list view
+        lv = (ListView) findViewById(R.id.itemsListView);
+        lvQ = (ListView) findViewById(R.id.itemListView2);
+        // This is the array adapter, it takes the context of the activity as a
+        // first parameter, the type of list view as a second parameter and your
+        // array as a third parameter.
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                itemNamesList );
+        lv.setAdapter(arrayAdapter);
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(
+                this, android.R.layout.simple_list_item_1, itemNamesList){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view =super.getView(position, convertView, parent);
+                TextView textView=(TextView) view.findViewById(android.R.id.text1);
+
+                textView.setTextColor(Color.WHITE);
+
+                return view;
+            }
+        };
+        ArrayAdapter<String> arrayAdapter2 = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                itemQuantityList );
+        lv.setAdapter(arrayAdapter);
+        ArrayAdapter<String> adapter2=new ArrayAdapter<String>(
+                this, android.R.layout.simple_list_item_1, itemQuantityList){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view =super.getView(position, convertView, parent);
+                TextView textView=(TextView) view.findViewById(android.R.id.text1);
+
+                textView.setTextColor(Color.WHITE);
+
+                return view;
+            }
+        };
+        lvQ.setAdapter(adapter2);
+        lv.setAdapter(adapter);
+        */
         lv = (ListView) findViewById(R.id.itemsListView);
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
@@ -43,7 +97,7 @@ public class View_Items extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_list_item_1,
-                importedItemsInFridge );
+                importedItemsInFridge);
         lv.setAdapter(arrayAdapter);
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(
                 this, android.R.layout.simple_list_item_1, importedItemsInFridge){
@@ -51,14 +105,13 @@ public class View_Items extends AppCompatActivity {
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view =super.getView(position, convertView, parent);
                 TextView textView=(TextView) view.findViewById(android.R.id.text1);
-                /*YOUR CHOICE OF COLOR*/
+
                 textView.setTextColor(Color.WHITE);
 
                 return view;
             }
         };
-
-        /*SET THE ADAPTER TO LISTVIEW*/
         lv.setAdapter(adapter);
+
     }
 }
