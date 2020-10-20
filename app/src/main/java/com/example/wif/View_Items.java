@@ -1,7 +1,5 @@
 package com.example.wif;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -11,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -35,10 +36,12 @@ public class View_Items extends AppCompatActivity {
         SharedPreferences.Editor editor;
         shref = context.getSharedPreferences("itemsInFridge", Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        String response=shref.getString(key , "");
-        ArrayList<String> importedItemsInFridge= gson.fromJson(response,
-                new TypeToken<List<String>>(){}.getType());
-     /*   for(int i=0;i<importedItemsInFridge.size();i++)
+        String response=shref.getString( key , "");
+        if(response!="") {
+            ArrayList<String> importedItemsInFridge = gson.fromJson(response,
+                    new TypeToken<List<String>>() {
+                    }.getType());
+        /*for(int i=0;i<importedItemsInFridge.size();i++)
         {
             String[] separated = importedItemsInFridge.get(i).split(":");
             itemNamesList.add(separated[0]);
@@ -90,28 +93,34 @@ public class View_Items extends AppCompatActivity {
         lvQ.setAdapter(adapter2);
         lv.setAdapter(adapter);
         */
-        lv = (ListView) findViewById(R.id.itemsListView);
-        // This is the array adapter, it takes the context of the activity as a
-        // first parameter, the type of list view as a second parameter and your
-        // array as a third parameter.
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_list_item_1,
-                importedItemsInFridge);
-        lv.setAdapter(arrayAdapter);
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(
-                this, android.R.layout.simple_list_item_1, importedItemsInFridge){
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                View view =super.getView(position, convertView, parent);
-                TextView textView=(TextView) view.findViewById(android.R.id.text1);
+            lv = (ListView) findViewById(R.id.itemsListView);
+            // This is the array adapter, it takes the context of the activity as a
+            // first parameter, the type of list view as a second parameter and your
+            // array as a third parameter.
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                    this,
+                    android.R.layout.simple_list_item_1,
+                    importedItemsInFridge);
+            lv.setAdapter(arrayAdapter);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                    this, android.R.layout.simple_list_item_1, importedItemsInFridge) {
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    View view = super.getView(position, convertView, parent);
+                    TextView textView = (TextView) view.findViewById(android.R.id.text1);
 
-                textView.setTextColor(Color.WHITE);
+                    textView.setTextColor(Color.WHITE);
 
-                return view;
-            }
-        };
-        lv.setAdapter(adapter);
-
+                    return view;
+                }
+            };
+            lv.setAdapter(adapter);
+        }
+        else {
+            CharSequence text = "List is Empty!";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }
     }
 }
