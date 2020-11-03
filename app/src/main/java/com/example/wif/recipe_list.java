@@ -31,6 +31,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class recipe_list extends AppCompatActivity implements RecipeAdapter.OnItemClickListener{
+    public static final String EXTRA_URL = "imageUrl";
     ArrayList<ExampleRecipe> mRecipeList;
     ArrayList<ExampleItem> mExampleList;
     private RecyclerView mRecyclerView;
@@ -94,7 +95,7 @@ public class recipe_list extends AppCompatActivity implements RecipeAdapter.OnIt
                                 String imageUrl = recipeJSON.getString("image");
                                 String sourceUrl = recipeJSON.getString("url");
                                 String ingredients = recipeJSON.getJSONArray("ingredientLines").toString();
-                                mRecipeList.add(new ExampleRecipe(imageUrl, name, ingredients));
+                                mRecipeList.add(new ExampleRecipe(imageUrl, name, ingredients,sourceUrl));
                             }
                             mExampleAdapter = new RecipeAdapter(recipe_list.this, mRecipeList);
                             mRecyclerView.setAdapter(mExampleAdapter);
@@ -115,7 +116,8 @@ public class recipe_list extends AppCompatActivity implements RecipeAdapter.OnIt
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(recipe_list.this, web_view.class);
-        ExampleItem clickedItem = mExampleList.get(position);
+        ExampleRecipe clickedItem = mRecipeList.get(position);
+        intent.putExtra(EXTRA_URL, clickedItem.getrecipeURL());
         startActivity(intent);
 
     }
