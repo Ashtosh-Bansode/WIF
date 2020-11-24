@@ -77,7 +77,7 @@ public class recipe_list extends AppCompatActivity implements RecipeAdapter.OnIt
     }
 
     private void getRecipeJSON(){
-        String mJSONURLString = "https://api.edamam.com/search?q="+ingredients+"&app_id=e7c84dfd&app_key=390f2f630d131960f426fe3042eded36";
+        String mJSONURLString = "https://api.edamam.com/search?q="+ingredients+"&app_id=e7c84dfd&app_key=API_KEY";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 mJSONURLString,
